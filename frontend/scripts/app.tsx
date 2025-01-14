@@ -1,9 +1,12 @@
 import React from '../lib/react.js';
-import Switch from '../components/switch';
+import Switch from '../components/switch.tsx';
 
-const h = React.createElement;
 
 function App(): React.ReactNode {
+  return (
+    <div lang="en" style
+  )
+
   return h(
     'div',
     {
