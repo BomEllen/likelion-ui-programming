@@ -1,57 +1,64 @@
 import React from '../lib/react.js';
 import Switch from '../components/switch.tsx';
-import SwitchList from '../components/switch-list.tsx';
 
 /* Component ---------------------------------------------------------------- */
+
+type ListItem = {
+  active?: boolean;
+  disabled?: boolean;
+  showOnOffText?: boolean;
+  children: React.ReactNode;
+  onToggle?: () => void;
+};
+
+type List = ListItem[];
 
 function App(): React.ReactNode {
   const handleSwitch1Toggle = () => console.log('clicked switch 1');
   const handleSwitch3Toggle = () => console.log('clicked switch 3');
 
   // 데이터 추출
-  const list = [
+  const list: List = [
     {
       active: true,
       onToggle: handleSwitch1Toggle,
-      children: '와이파이(Wi-Fi)',
+      children: 'Wi-Fi',
     },
     {
-      children: '블루투스(Bluetooth)',
+      children: 'Bluetooth',
     },
     {
       disabled: true,
       onToggle: handleSwitch3Toggle,
-      children: '동작 줄이기(Reduced Motion)',
-    },
-    {
-      children: '스크린 리더(Screen Reader)',
-      active: true,
+      children: 'Reduced Motion',
     },
   ];
 
-  let renderListItemElements: Array<React.ReactElement> = [];
+  let renderListItemElements: Array<ListItem> = [];
 
   // for 문을 사용해 리스트 렌더링
   for (let i: number = 0, l: number = list.length; i < l; ++i) {
-    const listItem = list[i];
+    const listItem: ListItem = list[i];
 
     // 배열에 새 아이템 추가하기(Array.prototype.push)
-    // renderListItemElements.push(
-    //   // React Element
-    //   <Switch
-    //     active={listItem.active}
-    //     disabled={listItem.disabled}
-    //     showOnOffText={listItem.showOnOffText}
-    //     onToggle={listItem.onToggle}
-    //   >
-    //     {listItem.children}
-    //   </Switch>
-    // );
+    renderListItemElements.push(
+      // React Element
+      <section>
+        <h2>{listItem.children}</h2>
+        <p>active : {listItem.active?.toString()}</p>
+        <p>disabled : {listItem.disabled?.toString()}</p>
+        <p>showOnOffText : {listItem.showOnOffText?.toString()}</p>
+        <p>onToggle : {listItem.onToggle?.toString()}</p>
+      </section>
+    );
   }
+
+  // React Children (React Element List)
+  console.log({ renderListItemElements });
 
   return (
     <div lang="en" style={appStyles}>
-      <SwitchList items={list} />
+      {renderListItemElements}
     </div>
   );
 }
